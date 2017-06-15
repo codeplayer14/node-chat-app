@@ -28,3 +28,8 @@ socket.on('newMessage',function(data){
   console.log('New message: ',data);
 
 });
+
+socket.on('newUserJoined',function(data){
+
+  console.log(data);
+});

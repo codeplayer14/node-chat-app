@@ -31,7 +31,29 @@ io.on('connection',(socket)=>{
      text:message.text,
      createdAt: new Date().getTime()
    });
+
   });
+  // socket.broadcast.emit('newMessage',{
+  //   from:message.from,
+  //   text:message.text,
+  //   createdAt: new Date().getTime()
+  // });
+
+  socket.emit('newUserJoined',{from:'Admin',text:"Welcome to Paddy's Chat App."});
+  socket.broadcast.emit('newUserJoined',{from:'Admin',text:'New user joined.'});
+
+
+
+ });
+
+
+
+server.listen(port,()=>{
+
+  console.log(`Server up on ${port}`);
+})
+
+
 //   socket.emit('newEmail',{
 //
 //     from:'paddy@gmail.com',
@@ -45,11 +67,3 @@ io.on('connection',(socket)=>{
 //
 //   })
 //
- });
-
-
-
-server.listen(port,()=>{
-
-  console.log(`Server up on ${port}`);
-})
