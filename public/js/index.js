@@ -11,25 +11,20 @@ var socket = io();
   });
 
 
-  socket.on('newEmail',function(data){
+  // socket.on('newEmail',function(data){
+  //
+  //   console.log('New Email.',data);
+  //
+  // });
 
-    console.log('New Email.',data);
-
-  });
-
-socket.emit('createEmail',{
-
-    from: 'Paddy',
-    text: 'Did it work?'
-});
+// socket.emit('createEmail',{
+//
+//     from: 'Paddy',
+//     text: 'Did it work?'
+// });
 
 socket.on('newMessage',function(data){
 
   console.log('New message: ',data);
 
-});
-
-socket.emit('createMessage',{
-  from:'XYZ',
-  text:'Sure. Done scenes.'
 });

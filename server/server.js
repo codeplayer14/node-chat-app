@@ -21,31 +21,31 @@ io.on('connection',(socket)=>{
 
     });
 
-  socket.emit('newMessage',{
-
-      from: 'Paddy',
-      text: 'Hey, when do you want to meet',
-      createdAt: +new Date()
-  });
 
   socket.on('createMessage',function(message){
 
       console.log('New Message received: ',message);
-  })
-  socket.emit('newEmail',{
 
-    from:'paddy@gmail.com',
-    text:'Wassup nigga.',
-    createdAt: 123
+   io.emit('newMessage',{
+     from:message.from,
+     text:message.text,
+     createdAt: new Date().getTime()
+   });
   });
-
-  socket.on('createEmail',(newEmail)=>{
-
-    console.log('Got a mail: ',newEmail);
-
-  })
-
-});
+//   socket.emit('newEmail',{
+//
+//     from:'paddy@gmail.com',
+//     text:'Wassup nigga.',
+//     createdAt: 123
+//   });
+//
+//   socket.on('createEmail',(newEmail)=>{
+//
+//     console.log('Got a mail: ',newEmail);
+//
+//   })
+//
+ });
 
 
 
