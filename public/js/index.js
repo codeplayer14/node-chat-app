@@ -25,11 +25,36 @@ var socket = io();
 
 socket.on('newMessage',function(data){
 
-  console.log('New message: ',data);
+  var li = jQuery('<li></li>');
+  li.text(`${data.from}:${data.text}`);
+  jQuery('#messageList').append(li);
 
 });
 
 socket.on('newUserJoined',function(data){
 
   console.log(data);
+});
+
+// socket.emit('createMessage',{
+//
+//   from:'Randy',
+//   text:'RKO'
+// },function(responseFromServer){
+//
+//     console.log('Got ack.', responseFromServer);
+// });
+
+jQuery('#messageForm').on('submit',function(e){
+
+  e.preventDefault();
+
+  socket.emit('createMessage',{
+
+    from:'User',
+    text : jQuery('[name=message]').val()
+  },function(ack){
+
+
+  });
 });
