@@ -6,7 +6,7 @@ const port = process.env.PORT||3000;
 const express = require('express');
 const publicPath = path.join(__dirname,'../public');
 
-var {generateMessage}  = require('./utils/message');
+var {generateMessage,generateLocationMessage}  = require('./utils/message');
 var app = express();
 var server = http.createServer(app);
 var io = socketIO(server);
@@ -42,6 +42,12 @@ io.on('connection',(socket)=>{
   //   createdAt: new Date().getTime()
   // });
 
+
+
+  socket.on('PositionDetails',(PositionData)=>{
+
+      io.emit('newLocationMessage',generateLocationMessage('Admin',PositionData));
+  });
 
  });
 

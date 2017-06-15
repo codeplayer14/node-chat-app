@@ -25,9 +25,9 @@ var socket = io();
 
 socket.on('newMessage',function(data){
 
-  var li = jQuery('<li></li>');
+  var li = $('<li></li>');
   li.text(`${data.from}:${data.text}`);
-  jQuery('#messageList').append(li);
+  $('#messageList').append(li);
 
 });
 
@@ -45,16 +45,47 @@ socket.on('newUserJoined',function(data){
 //     console.log('Got ack.', responseFromServer);
 // });
 
-jQuery('#messageForm').on('submit',function(e){
+$('#messageForm').on('submit',function(e){
 
   e.preventDefault();
 
   socket.emit('createMessage',{
 
     from:'User',
-    text : jQuery('[name=message]').val()
+    text : $('[name=message]').val()
   },function(ack){
 
 
   });
+});
+
+var locationButton = $('#locationButton');
+
+locationButton.on('click',function(e){
+
+  navigator.geolocation.getCurrentPosition(function(position){
+    console.log(position);
+
+    socket.emit('PositionDetails',{
+      latitude:position.coords.latitude,
+      longitude:position.coords.longitude
+    });
+
+  },function(){
+    console.log('Error in fetching position.');
+  });
+
+});
+
+
+socket.on('newLocationMessage',function(locationData){
+
+  var li = $('<li></li>');
+  var a = $(`<a target = _blank>Location</a>`)
+
+  a.attr('href',locationData.locationURL);
+  li.text(locationData.from+": ");
+  li.append(a);
+  $('#messageList').append(li);
+
 });
