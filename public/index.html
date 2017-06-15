@@ -5,24 +5,34 @@
   <head>
 
     <meta charset="utf-8">
-
+    <link rel="stylesheet" href="./css/styles.css"/>
   </head>
-  <body>
+  <body class = 'chat'>
 
-    <p> Paddy's Chat App</p>
+    <div class = "chat__sidebar">
 
-    <ol id = 'messageList'>
+      <h3>People</h3>
+      <div id ="users"></div>
+    </div>
 
+    <div class = "chat__main" >
 
-    </ol>
+      <ol id = 'messageList' class = "chat__messages"> </ol>
+      <div class=  "chat__footer">
 
-    <form  id ="messageForm">
+        <form  id ="messageForm">
 
-      <input name="message" type="text" placeholder="Enter a message"/>
-      <button>Send Message</button>
+          <input name="message" type="text" placeholder="Enter a message" autofocus autocomplete="off"/>
+          <button>Send Message</button>
 
-    </form>
-          <button id = 'locationButton'>Send Location</button>
+        </form>
+              <button id = 'locationButton'>Send Location</button>
+
+</div>
+    </div>
+
+    <!-- <p> Paddy's Chat App</p> -->
+
 
     <script src = '/socket.io/socket.io.js'></script>
     <script src = '/js/libs/jquery-3.2.1.min.js'></script>

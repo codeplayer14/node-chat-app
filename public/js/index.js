@@ -26,7 +26,7 @@ var socket = io();
 socket.on('newMessage',function(data){
 
   var li = $('<li></li>');
-  li.text(`${data.from}:${data.text}`);
+  li.text(`${data.from}: ${data.text}`);
   $('#messageList').append(li);
 
 });
@@ -48,13 +48,14 @@ socket.on('newUserJoined',function(data){
 $('#messageForm').on('submit',function(e){
 
   e.preventDefault();
-
+  var box = $('[name=message]');
   socket.emit('createMessage',{
 
     from:'User',
-    text : $('[name=message]').val()
+    text : box.val()
   },function(ack){
 
+    box.val('');
 
   });
 });
@@ -63,15 +64,20 @@ var locationButton = $('#locationButton');
 
 locationButton.on('click',function(e){
 
-  navigator.geolocation.getCurrentPosition(function(position){
-    console.log(position);
 
+  locationButton.attr('disabled','disabled').text('Sending Location...');
+
+  navigator.geolocation.getCurrentPosition(function(position){
+
+      locationButton.removeAttr('disabled').text('Send Location');
     socket.emit('PositionDetails',{
       latitude:position.coords.latitude,
       longitude:position.coords.longitude
     });
 
   },function(){
+
+          locationButton.removeAttr('disabled').text('Send Location');
     console.log('Error in fetching position.');
   });
 
